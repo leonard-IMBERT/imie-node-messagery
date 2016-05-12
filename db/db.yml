@@ -1,10 +1,10 @@
-user:
+me_user:
   username: text
   localisation: text
   password: text
   mail: text
 
-message:
+me_message:
   content: text
-  user_id:
+  me_user_id:
   time: 'timestamp with time zone default now()'
