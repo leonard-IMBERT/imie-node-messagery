@@ -56,7 +56,7 @@ et renvera les status suivant:
 ]
 ```
 
-`GET /messages` prend optionnellement un timestamp
+`GET /messages` prend optionnellement un timestamp dans le query param `timestamp`
  - En cas d'absence de timestamp, renvoyer une 400 vide
  - En case de presence de timestamp, revoyer une 200 comprenant tout les messages ayant un timestamp superieur a celui precise
 
