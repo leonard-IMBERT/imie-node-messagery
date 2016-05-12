@@ -1,4 +1,4 @@
-name := """plop"""
+name := """Instant messagerie"""
 
 version := "1.0-SNAPSHOT"
 
