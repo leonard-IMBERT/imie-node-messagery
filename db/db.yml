@@ -1,0 +1,10 @@
+user:
+  username: text
+  localisation: text
+  password: text
+  mail: text
+
+message:
+  content: text
+  user_id:
+  time: 'timestamp with time zone default now()'
