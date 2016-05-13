@@ -1,0 +1,40 @@
+@()
+
+@main("Inscription") {
+<div id="body" class="container">
+  <div id="registerForm" class="panel">
+    <div class="panel-heading">
+      <h1>Inscription</h1>
+    </div>
+    <div class="panel-body">
+      <form id="form" action="@routes.MessagerieController.registerPost" method="POST">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input class="form-control" type="email" name="email" placeholder="Email" id="email">
+          <p id="errorEmail" class="help-block inputError">Entrez une adresse email valide</p>
+        </div>
+        <div class="form-group">
+          <label for="username">Pseudonyme</label>
+          <input class="form-control" type="text" name="username" placeholder="Pseudonyme" id="usermame">
+          <p class="help-block">Le pseudoyme sera le nom utilisé pour vous désigner dans le chat</p>
+        </div>
+        <div class="form-group">
+          <label for="password1">Mot de passe</label>
+          <input class="form-control" type="password" name="password1" placeholder="Mot de passe" id="password1">
+          <p class="help-block inputError" id="errorLength">Votre mot de passe doit faire plus de 3 charactere</p>
+        </div>
+        <div class="form-group">
+          <label for="password2">Confirmation du mot de passe</label>
+          <input class="form-control" type="password" name="password2" placeholder="Confirmation" id="password2">
+          <p class="help-block inputError" id="errorCorrespond">Les deux mots de passe ne corresponde pas</p>
+        </div>
+        <div class="buttons">
+          <span class="btn btn-default" id="register">Inscription</span>
+          <a href="@routes.MessagerieController.index" class="btn btn-default">Connexion</a>
+        </div>
+      </form>
+      <script src="@routes.Assets.versioned("javascripts/form/register.js")"></script>
+    </div>
+  </div>
+</div>
+}

@@ -11,9 +11,14 @@
   align-content: center;
 }
 
-#buttons {
+.buttons {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+}
+
+.inputError {
+  color: rgb(155, 0, 0);
+  display: none;
 }
 
 html, body {

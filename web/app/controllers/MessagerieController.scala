@@ -18,6 +18,10 @@ class MessagerieController @Inject()(implicit exec: ExecutionContext) extends Co
   }
 
   def register = Action { request =>
+    Ok(views.html.register())
+  }
+
+  def registerPost = Action { request =>
     Ok
   }
 }
