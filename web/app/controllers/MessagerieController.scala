@@ -12,4 +12,12 @@ class MessagerieController @Inject()(implicit exec: ExecutionContext) extends Co
   def index = Action { request =>
     Ok(views.html.index())
   }
+
+  def auth = Action { request =>
+    Ok
+  }
+
+  def register = Action { request =>
+    Ok
+  }
 }

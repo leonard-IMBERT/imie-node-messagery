@@ -1,0 +1,25 @@
+#login {
+  min-width: 350px;
+  min-height: 280px;
+}
+
+#body {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+#buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+html, body {
+  background-color:rgb(245,245,245);
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
