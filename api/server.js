@@ -1,6 +1,7 @@
 var express = require('express');
 var msg = require('./messages.js');
 var usr = require('./user.js');
+var conf = require('./conf/conf.js');
 var auth = require('.auth.js');
 var url = require('url');
 var app = express();
@@ -142,3 +143,5 @@ app.delete('/user', function(req, res){
 app.post('/auth',function(req, res){
 
 });
+
+app.listen(conf.API_PORT)
