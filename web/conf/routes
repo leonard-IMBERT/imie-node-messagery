@@ -11,5 +11,7 @@ GET     /register                   controllers.MessagerieController.register
 
 POST    /register                   controllers.MessagerieController.registerPost
 
+GET     /client                     controllers.MessagerieController.client
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
