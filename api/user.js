@@ -1,5 +1,5 @@
 var pg = require('pg');
-var Conf = require('./conf/conf.js)
+var Conf = require('./conf/conf.js');
 
 function getUserId(user_id){
 

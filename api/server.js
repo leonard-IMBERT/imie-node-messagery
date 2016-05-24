@@ -2,7 +2,7 @@ var express = require('express');
 var msg = require('./messages.js');
 var usr = require('./user.js');
 var conf = require('./conf/conf.js');
-var auth = require('.auth.js');
+var auth = require('./auth.js');
 var url = require('url');
 var app = express();
 
