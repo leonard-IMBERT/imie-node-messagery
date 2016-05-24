@@ -9,99 +9,99 @@ var conString = "postgres://"+PG_USER+":"+PG_PASSWORD+"@"+PG_URL+":"+PG_PORT+"/"
 
 function getUserId(user_id){
 
-		pg.connect(conString, function(err, client, done){
-			if(err){
-		 	   return console.error('desole probleme', err);
-			};
+  pg.connect(conString, function(err, client, done){
+    if(err){
+      return console.error('desole probleme', err);
+    };
 
-			client.query("SELECT * FROM me_user WHERE me_user_id = '"+json.user_id+"'", function(err, result){
+    client.query("SELECT * FROM me_user WHERE me_user_id = '"+json.user_id+"'", function(err, result){
 
-				done();
+      done();
 
-				if(err){
-					return console.error('erreur pendant l\'execution de la requete', err);
-				};
-				console.log(result);
-			})
-		});
+      if(err){
+        return console.error('erreur pendant l\'execution de la requete', err);
+      };
+      console.log(result);
+    })
+  });
 }
 
 function insertUsr(user){
-		var uuid_user = uuid.v4();
+  var uuid_user = uuid.v4();
 
-		pg.connect(conString, function(err, client, done) {
+  pg.connect(conString, function(err, client, done) {
 
-		  if(err) {
-		    return console.error('desole probleme', err);
-		  }
+    if(err) {
+      return console.error('desole probleme', err);
+    }
 
-		  client.query("INSERT INTO me_user (me_user_id, username, password, localisation, mail) VALUES ('"+ uuid_user +"', '"+json.username+"', '"+ json.password +"', '"+json.localisation+"', '"+json.mail+"')", function(err, result) {
+    client.query("INSERT INTO me_user (me_user_id, username, password, localisation, mail) VALUES ('"+ uuid_user +"', '"+json.username+"', '"+ json.password +"', '"+json.localisation+"', '"+json.mail+"')", function(err, result) {
 
-		    done();
-		 
-		    if(err) {
-		      return console.error('erreur pendant l\'execution de la requete', err);
-		    };
-		    console.log(result);
+      done();
 
-		  });
-		});
+      if(err) {
+        return console.error('erreur pendant l\'execution de la requete', err);
+      };
+      console.log(result);
+
+    });
+  });
 };
 
 function checkUsr(user){
 
-	pg.connect(conString, function(err, client, done){
+  pg.connect(conString, function(err, client, done){
 
-		if(err){
-			return console.error('desole probleme', err);
-		};
+    if(err){
+      return console.error('desole probleme', err);
+    };
 
-		client.query("SELECT username, password, localisation, mail FROM user WHERE  me_user_id = '"+json.user_id+"'", function(err, result){
+    client.query("SELECT username, password, localisation, mail FROM user WHERE  me_user_id = '"+json.user_id+"'", function(err, result){
 
-			done();
+      done();
 
-			if(err){
-				return false;
-			};
-			console.log(result);
-		});
-	});
+      if(err){
+        return false;
+      };
+      console.log(result);
+    });
+  });
 };
 
 function updateUsr(user){
 
-	pg.connect(conString, function(err, client, done){
+  pg.connect(conString, function(err, client, done){
 
-		if(err){
-			return console.error('desole probleme', err);
-		}
-			client.query("UPDATE me_user SET username = '"+json.username+"', '"+json.password+"', '"+json.localisation+"', '"+json.mail+"' WHERE user_id = '"+json.user_id+"'", function(err, result) {
+    if(err){
+      return console.error('desole probleme', err);
+    }
+    client.query("UPDATE me_user SET username = '"+json.username+"', '"+json.password+"', '"+json.localisation+"', '"+json.mail+"' WHERE user_id = '"+json.user_id+"'", function(err, result) {
 
-				done();
+      done();
 
-				if(err){
-					return console.error('erreur pendant l\'execution de la requete', err);
-				};
-			});
-		});
+      if(err){
+        return console.error('erreur pendant l\'execution de la requete', err);
+      };
+    });
+  });
 };
 
 function deleteUsr(user){
 
-	pg.connect(conString, function(err, client, done){
+  pg.connect(conString, function(err, client, done){
 
-		if(err){
-			return console.error('desole probleme', err);
-		};
+    if(err){
+      return console.error('desole probleme', err);
+    };
 
-		client.query("DELETE FROM me_user WHERE me_user_id = '"+json.user_id+"'",function(err, result){
-			
-			done();
+    client.query("DELETE FROM me_user WHERE me_user_id = '"+json.user_id+"'",function(err, result){
 
-			if(err){
-				return console.error('erreur pendant l\'execution de la requete', err);
-			};
-		});
+      done();
 
-	});
+      if(err){
+        return console.error('erreur pendant l\'execution de la requete', err);
+      };
+    });
+
+  });
 };
