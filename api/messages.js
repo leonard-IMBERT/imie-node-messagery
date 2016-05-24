@@ -13,7 +13,22 @@ var conString = "postgres://"+PG_USER+":"+PG_PASSWORD+"@"+PG_URL+":"+PG_PORT+"/"
 
 function getMessages(timestamp){
 
-}
+	pg.connect(conString, function(err, client, done){
+		if(err){
+		    return console.error('desole probleme', err);
+		};
+
+		client.query("SELECT * FROM me_message WHERE timestamp < '"+json.timestamp+"' ORDER BY timestamp ASC", function(err, result){
+
+			done();
+
+			if(err){
+				return console.error('erreur pendant l\'execution de la requete', err);
+			};
+			console.log(result.row.);
+		});
+	});
+};
 
 function insertMsg(message){
 
