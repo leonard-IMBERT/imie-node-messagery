@@ -27,7 +27,7 @@ app.get('/user',function(req, res){
 
   if(user_id === undefined){
     res.status(400).send('KO');
-  }else{
+  } else {
     res.send(usr.getUserId(url));
   }
 
@@ -51,7 +51,7 @@ app.post('/messages', function(req, res){
 
     if(json.content === undefined || json.user_id === undefined){
       res.status(400).send('KO');
-    }else{
+    } else {
       msg.insertMsg(json);
       res.status(200).send('OK');
     }
@@ -75,7 +75,7 @@ app.post('/user', function(req, res){
 
     if(json.username === undefined || json.localisation === undefined || json.password === undefined || json.mail === undefined ){
       res.status(400).send('KO');
-    }else{
+    } else {
       usr.insertUsr(json);
       res.status(200).send('OK');
     };
@@ -99,7 +99,7 @@ app.put('/user', function(req, res){
 
     if(json.user_id === undefined || json.username === undefined || json.localisation === undefined || json.password === undefined || json.mail === undefined ){
       res.status(400).send('KO');
-    }else{
+    } else {
       usr.checkUsr(json);
       if(return === false){
         res.status(404).send('User not found');
@@ -128,7 +128,7 @@ app.delete('/user', function(req, res){
 
     if(json.user_id === undefined || json.username === undefined || json.localisation === undefined || json.password === undefined || json.mail === undefined ){
       res.status(400).send('KO');
-    }else{
+    } else {
       usr.checkUsr(json);
       if(return === false){
         res.status(404).send('User not found');
