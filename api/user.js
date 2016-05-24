@@ -1,15 +1,9 @@
-var PG_PASSWORD = process.env.PG_PASSWORD;
-var PG_USER = process.env.PG_USER;
-var PG_URL = process.env.PG_URL;
-var PG_PORT = process.env.PG_PORT;
-var PG_DATABASE = process.env.PG_DATABASE;
-
 var pg = require('pg');
-var conString = "postgres://"+PG_USER+":"+PG_PASSWORD+"@"+PG_URL+":"+PG_PORT+"/"+PG_DATABASE"";
+var Conf = require('./conf/conf.js)
 
 function getUserId(user_id){
 
-  pg.connect(conString, function(err, client, done){
+  pg.connect(Conf.CONNECTION_URL, function(err, client, done){
     if(err){
       return console.error('desole probleme', err);
     };
@@ -29,7 +23,7 @@ function getUserId(user_id){
 function insertUsr(user){
   var uuid_user = uuid.v4();
 
-  pg.connect(conString, function(err, client, done) {
+  pg.connect(Conf.CONNECTION_URL, function(err, client, done) {
 
     if(err) {
       return console.error('desole probleme', err);
@@ -50,7 +44,7 @@ function insertUsr(user){
 
 function checkUsr(user){
 
-  pg.connect(conString, function(err, client, done){
+  pg.connect(Conf.CONNECTION_URL, function(err, client, done){
 
     if(err){
       return console.error('desole probleme', err);
@@ -70,7 +64,7 @@ function checkUsr(user){
 
 function updateUsr(user){
 
-  pg.connect(conString, function(err, client, done){
+  pg.connect(Conf.CONNECTION_URL, function(err, client, done){
 
     if(err){
       return console.error('desole probleme', err);
@@ -88,7 +82,7 @@ function updateUsr(user){
 
 function deleteUsr(user){
 
-  pg.connect(conString, function(err, client, done){
+  pg.connect(Conf.CONNECTION_URL, function(err, client, done){
 
     if(err){
       return console.error('desole probleme', err);

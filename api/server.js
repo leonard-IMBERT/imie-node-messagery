@@ -1,12 +1,3 @@
-function verifyEnv(){
-  if(process.env.PG_PASSWORD === undefined || process.env.PG_PASSWORD === null){
-    throw 'missing environnement variable';
-  }
-
-}
-
-verifyEnv();
-
 var express = require('express');
 var msg = require('./messages.js');
 var usr = require('./user.js');
