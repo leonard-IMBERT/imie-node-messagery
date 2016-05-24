@@ -100,8 +100,8 @@ app.put('/user', function(req, res){
     if(json.user_id === undefined || json.username === undefined || json.localisation === undefined || json.password === undefined || json.mail === undefined ){
       res.status(400).send('KO');
     } else {
-      usr.checkUsr(json);
-      if(return === false){
+      var ret = usr.checkUsr(json);
+      if(ret === false){
         res.status(404).send('User not found');
         break
       }
@@ -129,8 +129,8 @@ app.delete('/user', function(req, res){
     if(json.user_id === undefined || json.username === undefined || json.localisation === undefined || json.password === undefined || json.mail === undefined ){
       res.status(400).send('KO');
     } else {
-      usr.checkUsr(json);
-      if(return === false){
+      var ret = usr.checkUsr(json);
+      if(ret === false){
         res.status(404).send('User not found');
         break
       }
