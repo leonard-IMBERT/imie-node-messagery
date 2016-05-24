@@ -1,6 +1,6 @@
 var uuid = require('uuid');
 var pg = require('pg');
-var Conf = require('conf/conf.js');
+var Conf = require('./conf/conf.js');
 
 function getMessages(timestamp){
 
