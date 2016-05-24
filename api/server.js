@@ -103,10 +103,10 @@ app.put('/user', function(req, res){
       var ret = usr.checkUsr(json);
       if(ret === false){
         res.status(404).send('User not found');
-        break
+      } else {
+        usr.updateUsr(json);
+        res.status(200).send('OK');
       }
-      usr.updateUsr(json);
-      res.status(200).send('OK');
     };
   });
 });
@@ -132,10 +132,10 @@ app.delete('/user', function(req, res){
       var ret = usr.checkUsr(json);
       if(ret === false){
         res.status(404).send('User not found');
-        break
+      } else {
+        usr.deleteUsr(json);
+        res.status(200).send('OK');
       }
-      usr.deleteUsr(json);
-      res.status(200).send('OK');
     };
   };
 });
