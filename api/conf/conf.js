@@ -19,7 +19,7 @@ if(
   throw 'Cannot retrieve environement variables';
 }
 
-var CONNECTION_URL = PG_URL || "postgres://" + PG_USER + ":" + PG_PASSWORD + "@" + PG_HOST + ":" + PG_PORT + "/" + PG_DATABASE"";
+var CONNECTION_URL = PG_URL || "postgres://" + PG_USER + ":" + PG_PASSWORD + "@" + PG_HOST + ":" + PG_PORT + "/" + PG_DATABASE;
 
 module.exports = {
   PG_PASSWORD,
