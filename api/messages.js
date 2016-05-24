@@ -7,7 +7,7 @@ function getMessages(timestamp){
   pg.connect(Conf.CONNECTION_URL, function(err, client, done){
     if(err) {
       console.error('desole probleme', err);
-      return null;
+      callback(null);
     }
 
     var query = "SELECT * FROM me_message WHERE timestamp < '"+json.timestamp+"' ORDER BY timestamp ASC"
@@ -18,10 +18,10 @@ function getMessages(timestamp){
 
       if(err) {
         console.error('erreur pendant l\'execution de la requete', query, err);
-        return null;
+        callback(null);
       }
 
-      return result.row
+      callback(result.row);
     });
   });
 };
@@ -33,7 +33,7 @@ function insertMsg(message){
 
     if(err) {
       console.error('desole probleme', err);
-      return null;
+      callback(null);
     }
 
     client.query("INSERT INTO me_message (me_message_id, content, me_user_id) VALUES ('"+ uuid_message +"', '"+json.content+"', '"+ json.me_user_id +"')", function(err, result) {
@@ -42,7 +42,7 @@ function insertMsg(message){
 
       if(err) {
         console.error('erreur pendant l\'execution de la requete', err);
-        return null;
+        callback(null);
       }
 
       console.log(result);
