@@ -3,6 +3,7 @@ me_user:
   localisation: text
   password: text
   mail: text
+  active: boolean
 
 me_message:
   content: text
