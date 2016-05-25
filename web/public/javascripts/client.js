@@ -5,8 +5,8 @@ const Page = {
   menu: document.getElementById("menu")
 }
 
-const API_URL = "http://" + chat.dataset["api_url"] + ":" + chat.dataset["api_port"]
-const user_id = chat.dataset["user_id"];
+const API_URL = "http://" + Page.chat.dataset["api_url"] + ":" + Page.chat.dataset["api_port"]
+const user_id = Page.chat.dataset["user_id"];
 
 function ajax(method, url, data, callback) {
   const request = new XMLHttpRequest();
