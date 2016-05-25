@@ -2,15 +2,16 @@ var uuid = require('uuid');
 var pg = require('pg');
 var Conf = require('./conf/conf.js');
 
-function getMessages(timestamp){
+function getMessages(timestamp, callback){
 
   pg.connect(Conf.CONNECTION_URL, function(err, client, done){
     if(err) {
       console.error('desole probleme', err);
       callback(null);
+      return;
     }
 
-    var query = "SELECT * FROM me_message WHERE timestamp < '"+json.timestamp+"' ORDER BY timestamp ASC"
+    var query = "SELECT me_message_id, time, content, me_user_id FROM me_message WHERE time < to_timestamp(" + timestamp + ") ORDER BY time ASC"
 
     client.query(query, function(err, result){
 
@@ -19,14 +20,15 @@ function getMessages(timestamp){
       if(err) {
         console.error('erreur pendant l\'execution de la requete', query, err);
         callback(null);
+        return;
       }
 
-      callback(result.row);
+      callback(result.rows);
     });
   });
 };
 
-function insertMsg(message){
+function insertMsg(message, callback){
   var uuid_message = uuid.v4();
 
   pg.connect(Conf.CONNECTION_URL, function(err, client, done) {
@@ -34,18 +36,27 @@ function insertMsg(message){
     if(err) {
       console.error('desole probleme', err);
       callback(null);
+      return;
     }
 
-    client.query("INSERT INTO me_message (me_message_id, content, me_user_id) VALUES ('"+ uuid_message +"', '"+json.content+"', '"+ json.me_user_id +"')", function(err, result) {
+    var query = "INSERT INTO me_message (me_message_id, content, me_user_id) VALUES ('" + uuid_message + "'::uuid, '" + message.content + "', '" + message.user_id + "'::uuid)"
+
+    client.query(query, function(err, result) {
 
       done();
 
       if(err) {
         console.error('erreur pendant l\'execution de la requete', err);
         callback(null);
+        return;
       }
 
-      console.log(result);
+      callback(result);
     });
   });
+}
+
+module.exports = {
+  getMessages,
+  insertMsg
 }

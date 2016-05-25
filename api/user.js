@@ -11,7 +11,7 @@ function getUserId(user_id, callback){
       callback(null);
     }
 
-    client.query("SELECT username, password, localisation, mail FROM me_user WHERE me_user_id = '"+user_id+"'", function(err, result){
+    client.query("SELECT username, localisation, mail, active FROM me_user WHERE me_user_id = '"+user_id+"'", function(err, result){
 
       done();
 
@@ -35,7 +35,7 @@ function insertUsr(user, callback){
       callback(null);
     }
 
-    client.query("INSERT INTO me_user (me_user_id, username, password, localisation, mail) VALUES ('"+ uuid_user +"', '"+user.username+"', '"+ user.password +"', '"+user.localisation+"', '"+user.mail+"')", function(err, result) {
+    client.query("INSERT INTO me_user (me_user_id, username, password, localisation, mail, active) VALUES ('"+ uuid_user +"', '"+user.username+"', '"+ user.password +"', '"+user.localisation+"', '"+user.mail+"', true)", function(err, result) {
 
       done();
 
@@ -49,7 +49,7 @@ function insertUsr(user, callback){
   });
 };
 
-function updateUsr(user, callbacl){
+function updateUsr(user_id, user, callback){
 
   pg.connect(Conf.CONNECTION_URL, function(err, client, done){
 
@@ -57,7 +57,13 @@ function updateUsr(user, callbacl){
       console.error('desole probleme', err);
       callback(null);
     }
-    client.query("UPDATE me_user SET username = '"+user.username+"', '"+user.password+"', '"+user.localisation+"', '"+user.mail+"' WHERE user_id = '"+user.user_id+"'", function(err, result) {
+    var query = "UPDATE me_user SET";
+    if(user.username) { query += (" username = '" + user.username + "'"); }
+    if(user.localisation) { query += (", localisation = '" + user.localisation + "'"); }
+    if(user.mail) { query += (", mail = '" + user.mail + "'"); }
+    query += " WHERE me_user_id = '" + user_id + "'::uuid";
+
+    client.query(query, function(err, result) {
 
       done();
 
@@ -65,6 +71,8 @@ function updateUsr(user, callbacl){
         console.error('erreur pendant l\'execution de la requete', err);
         callback(null);
       };
+
+      callback(user);
     });
   });
 };
@@ -78,7 +86,7 @@ function deleteUsr(user_id, callback){
       callback(null);
     };
 
-    client.query("DELETE FROM me_user WHERE me_user_id = '"+user_id+"'",function(err, result){
+    client.query("UPDATE me_user SET active = false WHERE me_user_id = '"+user_id+"'",function(err, result){
 
       done();
 
@@ -86,6 +94,8 @@ function deleteUsr(user_id, callback){
         console.error('erreur pendant l\'execution de la requete', err);
         callback(null);
       };
+
+      callback(user_id);
     });
   });
 };

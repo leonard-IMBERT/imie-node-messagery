@@ -16,7 +16,7 @@ app.get('/messages', function(req, res) {
   if(timestamp === undefined) {
     res.status(400).send('KO');
   } else {
-    msg.getMessages(url, (msgs) => {
+    msg.getMessages(timestamp, (msgs) => {
       res.status(200).send(msgs)
     });
   }
@@ -42,7 +42,7 @@ app.get('/user',function(req, res){
 
 app.post('/messages', function(req, res){
 
-  var res = '';
+  var dataReq = '';
 
   req.on('error',function(e){
     console.error(e);
@@ -50,17 +50,17 @@ app.post('/messages', function(req, res){
   });
 
   req.on('data', function(d){
-    res += d;
+    dataReq += d;
   });
 
   req.on('end', function(){
-    var json = JSON.parse(res);
+    var json = JSON.parse(dataReq || "{}");
 
     if(json.content === undefined || json.user_id === undefined){
       res.status(400).send('KO');
     } else {
-      msg.insertMsg(json, (res) => {
-        if(res === null) {
+      msg.insertMsg(json, (result) => {
+        if(result === null) {
           res.status(500).send('KO');
         } else {
           res.status(200).send('OK');
@@ -88,7 +88,7 @@ app.post('/user', function(req, res){
     if(json.username === undefined || json.localisation === undefined || json.password === undefined || json.mail === undefined ){
       res.status(400).send('KO');
     } else {
-      usr.insertUsr(json, (res) => {
+      usr.insertUsr(json, (ret) => {
         if(ret === null) {
           res.status(500).send('KO');
         } else {
@@ -115,14 +115,14 @@ app.put('/user', function(req, res){
   req.on('end', function(){
     var json = JSON.parse(dataRes);
 
-    if(json.user_id === undefined || json.username === undefined || json.localisation === undefined || json.password === undefined || json.mail === undefined || user_id === undefined){
+    if(user_id === undefined || (json.username === undefined && json.localisation === undefined && json.mail === undefined)){
       res.status(400).send('KO');
     } else {
-      usr.checkUsr(user_id, (ret) => {
+      usr.getUserId(user_id, (ret) => {
         if(ret === undefined){
           res.status(404).send('User not found');
         } else {
-          usr.updateUsr(json, (re) => {
+          usr.updateUsr(user_id, json, (re) => {
             if(re === null) {
               res.status(500).send('KO');
             } else {
@@ -140,11 +140,11 @@ app.delete('/user', function(req, res){
   if(user_id === undefined){
       res.status(400).send('KO');
   } else {
-    usr.checkUsr(user_id, (user) => {
+    usr.getUserId(user_id, (user) => {
       if(user === undefined){
         res.status(404).send('User not found');
       } else {
-        usr.deleteUsr(json, (result) => {
+        usr.deleteUsr(user_id, (result) => {
           if(result === null) {
             res.status(500).send('KO');
           } else {
