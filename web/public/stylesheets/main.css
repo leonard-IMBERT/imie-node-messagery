@@ -21,10 +21,27 @@
   display: none;
 }
 
-html, body {
+html, body, #chat {
   background-color:rgb(245,245,245);
   height: 100%;
   width: 100%;
   padding: 0px;
   margin: 0px;
+}
+
+#menu {
+  height: 100%;
+  background-color: #2AADF5;
+}
+
+#messages {
+  height: 90%;
+}
+
+#writer {
+  height: 10%;
+}
+
+#launch {
+  cursor:pointer;
 }

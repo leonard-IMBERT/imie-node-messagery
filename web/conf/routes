@@ -5,7 +5,7 @@
 # An example controller showing a sample home page
 GET     /                           controllers.MessagerieController.index
 
-GET     /auth                       controllers.MessagerieController.auth
+POST    /auth                       controllers.MessagerieController.auth
 
 GET     /register                   controllers.MessagerieController.register
 

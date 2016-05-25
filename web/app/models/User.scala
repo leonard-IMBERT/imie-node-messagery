@@ -37,6 +37,7 @@ object User {
       case UserIdNotFound => JsObject(Map("error" -> JsString("There is no user with this user_id")))
       case NoUserIdProvided => JsObject(Map("error" -> JsString("There is an error with the request done to the api")))
       case ParsingError => JsObject(Map("error" -> JsString("The response of the api is unparsable")))
+      case NoUsernameProvided => JsObject(Map("error" -> JsString("There is an error with the request done to the api")))
       case UnknownError(response) => JsObject(Map(
         "error" -> JsString("An unknow error happen"),
         "response" -> JsObject(Map(
@@ -50,6 +51,7 @@ object User {
   sealed trait Error
   case object UserIdNotFound extends Error
   case object NoUserIdProvided extends Error
+  case object NoUsernameProvided extends Error
   case object ParsingError extends Error
   case class UnknownError(response: WSResponse) extends Error
 
@@ -122,6 +124,16 @@ object User {
         case 200 => Right(Done)
         case 404 => Left(UserIdNotFound)
         case 400 => Left(NoUserIdProvided)
+        case _ => Left(UnknownError(response))
+      })
+  }
+
+  def getUserByEmail(email: String, password: String)(implicit c: Config, ws: WSClient, ec: ExecutionContext): Future[Either[Error, Option[User]]] = {
+    ws.url("http://" + c.API.url + ":" + c.API.port.toString + "/user")
+      .withQueryString("email" -> email, "password" -> password)
+      .get.map(response => response.status match {
+        case 200 => response.json.asOpt[List[User]].map(_.headOption).toRight(ParsingError)
+        case 400 => Left(NoUsernameProvided)
         case _ => Left(UnknownError(response))
       })
   }

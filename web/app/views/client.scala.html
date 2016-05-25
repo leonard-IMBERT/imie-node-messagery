@@ -1,15 +1,28 @@
+@import java.util.UUID
+@(api_url: String, api_port: Int, user_id: UUID)
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Client messagerie</title>
-  <script src="@routes.Assets.versioned("javascript/client.js")"></script>
-</head>
-<body>
-  <div id="chat">
-    <div id="menu"></div>
-    <div id="messages"></div>
-    <div id="writer"></div>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <title>Client messagerie</title>
+    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.ico")">
+    <script src="@routes.Assets.versioned("javascripts/client.js")"></script>
+
+  </head>
+  <body>
+    <div id="chat" data-api_url="@api_url" data-api_port="@api_port" data-user_id="@user_id.toString">
+      <div id="menu" class="col-sm-2">
+        <span id="pseudo"></span>
+      </div>
+      <div id="messages" class="col-sm-10"></div>
+      <div id="writer" class="col-sm-10">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Message">
+          <span id="launch" class="input-group-addon">Envoyer</span>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
