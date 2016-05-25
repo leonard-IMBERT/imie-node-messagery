@@ -2,6 +2,31 @@ var pg = require('pg');
 var uuid = require('uuid');
 var Conf = require('./conf/conf.js');
 
+function getUserNamePass(email, password, callback){
+
+  pg.connect(Conf.CONNECTION_URL, function(err, client, done) {
+
+    if(err) {
+      console.error('desole probleme', err);
+      callback(null);
+    }
+
+    var query = "SELECT me_user_id as id, username, localisation, mail as email, password FROM me_user WHERE mail = '" + email + "' AND password = '" + password + "'"
+
+    client.query(query, function(err, result) {
+
+      done();
+
+      if(err) {
+        console.error('erreur pendant l\'execution de la requete', err);
+        callback(null);
+      }
+
+      callback(result.rows);
+    });
+  });
+}
+
 function getUserId(user_id, callback){
 
   pg.connect(Conf.CONNECTION_URL, function(err, client, done){
@@ -104,5 +129,6 @@ module.exports = {
   getUserId,
   insertUsr,
   updateUsr,
-  deleteUsr
+  deleteUsr,
+  getUserNamePass
 }

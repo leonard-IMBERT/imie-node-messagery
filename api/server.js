@@ -26,17 +26,29 @@ app.get('/messages', function(req, res) {
 app.get('/user',function(req, res){
 
   var user_id = url.parse(req.url,true).query.user_id;
+  var email = url.parse(req.url, true).query.email;
+  var password = url.parse(req.url, true).query.password;
 
-  if(user_id === undefined){
+  if(user_id === undefined && (email === undefined && password === undefined)){
     res.status(400).send('KO');
   } else {
-    usr.getUserId(user_id, (user) => {
-      if(user === undefined) {
-        res.status(404).send('KO');
-      } else {
-        res.status(200).send(user);
-      }
-    });
+    if(user_id !== undefined) {
+      usr.getUserId(user_id, (user) => {
+        if(user === undefined) {
+          res.status(404).send('KO');
+        } else {
+          res.status(200).send(user);
+        }
+      });
+    } else {
+      usr.getUserNamePass(email, password, (user) => {
+        if(user === undefined) {
+          res.status(404).send('KO');
+        } else {
+          res.status(200).send(user);
+        }
+      })
+    }
   }
 });
 
