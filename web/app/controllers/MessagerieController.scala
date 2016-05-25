@@ -35,7 +35,7 @@ class MessagerieController @Inject()(implicit config: Config, exec: ExecutionCon
     (for {
       email <- form.dataParts.get("email").flatMap(_.headOption)
       username <- form.dataParts.get("username").flatMap(_.headOption)
-      password <- form.dataParts.get("password").flatMap(_.headOption)
+      password <- form.dataParts.get("password1").flatMap(_.headOption)
     } yield {
       User.insertNewUser(
         username = username,

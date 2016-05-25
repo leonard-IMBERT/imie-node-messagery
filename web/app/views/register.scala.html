@@ -7,7 +7,7 @@
       <h1>Inscription</h1>
     </div>
     <div class="panel-body">
-      <form id="form" action="@routes.MessagerieController.registerPost" method="POST">
+      <form id="form" action="@routes.MessagerieController.registerPost" method="POST" enctype="multipart/form-data">
         <div class="form-group">
           <label for="email">Email</label>
           <input class="form-control" type="email" name="email" placeholder="Email" id="email">

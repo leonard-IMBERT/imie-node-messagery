@@ -7,7 +7,7 @@
       <h1>Connectez vous</h1>
     </div>
     <div class="panel-body">
-      <form action="@routes.MessagerieController.auth" method="POST">
+      <form action="@routes.MessagerieController.auth" method="POST" enctype="multipart/form-data">
         <div class="form-group">
           <label for="email">Adresse email</label>
           <input type="email" class="form-control" id="email" placeholder="Email" name="email">
